@@ -15,7 +15,7 @@ Variables are acessed by *grabbing* those nodes, and getting their stored values
 That will *push* a new node called *foo* onto the tree.
 
     // Get foo's value.
-    -> foo $ val;
+    -> foo -> _val;
 
 That will *grab* the first node called *foo* and return its value.  
 But wait a minute! *foo* has no value, so it returns *nil*! We should do this first:
@@ -54,9 +54,9 @@ You can also do this:
 To access the nodes (and their values) in *root*, do this:
     
     // Access their values.
-    -> root -> foo $ val; // Returns 34.
-    -> root -> bar $ val; // Returns 17.
-    -> root -> qux $ val; // Returns 96.
+    -> root -> foo -> _val; // Returns 34.
+    -> root -> bar -> _val; // Returns 17.
+    -> root -> qux -> _val; // Returns 96.
 
 However, you cannot assign a *val* to *root* because it's "value" is its children.
 
@@ -73,12 +73,12 @@ To delete something, do this:
 First we *grab* _trash from the global tree, then *push* foo into it. That will immediately delete it and any value it has. You can't get it back out of the trash, though! That would be gross.
 
     // Eww! No way!
-    -> _trash -> foo $ val;
+    -> _trash -> foo -> _val;
 
 There are also some shorthand ways of writing this code to make your life easier.
 
     // This is can be shortened...
-    -> foo $ val;
+    -> foo -> _val;
     
     // ...into this!
     foo;
@@ -107,10 +107,10 @@ Using the method explained eariler on initializing your own trees, you can also 
     // Construct it to return a + b;
     -> myFunction
     [
-        (-> a $ val) + (-> b $ val);
+        (-> a -> _val) + (-> b -> _val);
     ];
 
-It's just like the tree made earlier, but it is constructed with a statement, rather than a node or a value. However, it is ambigious whether you want the static value of a + b, or if you want the statement to calculate a + b every time "myFunction $ val" is called.  
+It's just like the tree made earlier, but it is constructed with a statement, rather than a node or a value. However, it is ambigious whether you want the static value of a + b, or if you want the statement to calculate a + b every time "myFunction -> _val" is called.  
 To remove this ambiguousness, we need to use curly braces instead.
 
     // Delcare a new function.
@@ -119,7 +119,7 @@ To remove this ambiguousness, we need to use curly braces instead.
     // Construct it to return a + b;
     -> myFunction
     {
-        (-> a $ val) + (-> b $ val);
+        (-> a -> _val) + (-> b -> _val);
     };
 
 A little ugly, remember what I said about the compiler's interpretations? You can shorten it to just be:
