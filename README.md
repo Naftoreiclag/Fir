@@ -122,7 +122,7 @@ To remove this ambiguousness, we need to use curly braces instead.
         (-> a $ val) + (-> b $ val);
     };
 
-A little uglu, remember what I said about the compiler's interpretations? You can shorten it to just be:
+A little ugly, remember what I said about the compiler's interpretations? You can shorten it to just be:
 
     // Delcare a new function.
     <- myFunction
@@ -134,7 +134,43 @@ Real neato.
 
 Here's an object. I'll explain it later.
 
-    <- myObject
-    {
+    <- TwoDeeVector
+    [
+        <- x;
+        <- y;
+        <- z;
         
-    };
+        <- getSum
+        {
+            (_par -> x) + (_par -> y) + (_par -> z);
+        };
+        <- getLargest;
+        {
+            if(x >= y)
+            {
+                if(x >= z)
+                {
+                    x;
+                }
+                else
+                {
+                    z;
+                }
+            }
+            else
+            {
+                if(y >= z)
+                {
+                    y;
+                }
+                else
+                {
+                    z;
+                }
+            }
+        };
+        <- getProduct
+        {
+            (_par -> x) * (_par -> y) * (_par -> z);
+        }
+    ];
