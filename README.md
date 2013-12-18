@@ -91,12 +91,25 @@ Additionally, if you *grab* a node, but do not *push* anything into it, then the
     -> foo[17];
     
     // ...into this...
-    <- foo
+    <- foo;
     foo[17];
     
     // ...or this!
     <- foo[17];
 
 Pretty simple; you can combine the declaration and construction statements together into one line.
+
+Using the method explained eariler on initializing your own trees, you can also make trees that act as functions.
+
+    // Delcare a new function.
+    <- myFunction;
+    
+    // Construct it to return a + b;
+    -> myFunction
+    [
+        (-> a $ val) + (-> b $ val);
+    ];
+
+It's just like the tree made earlier, but it is constructed with a statement, rather than a node or a value. However, it is ambigious whether you want the static value of a + b, or if you want the statement to calculate a + b every time "myFunction $ val" is called.
 
     
