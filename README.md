@@ -56,4 +56,4 @@ However, you cannot assign a *val* to *root* because it's "value" is its childre
     // This is no good.
     -> root[33];
 
-That will overwrite foo, bar, and qux.
+That will overwrite foo, bar, and qux. In addition, you will no longer be able to reference them or their values, so it'll cause memory leaks!
