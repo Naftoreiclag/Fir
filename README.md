@@ -144,8 +144,55 @@ Here's an object. I'll explain it later.
         {
             (_par -> x) + (_par -> y) + (_par -> z);
         };
-        <- getLargest;
+        <- getLargest
         {
+            if(_par -> x >= _par -> y)
+            {
+                if(_par -> x >= _par -> z)
+                {
+                    _par -> x;
+                }
+                else
+                {
+                    _par -> z;
+                }
+            }
+            else
+            {
+                if(_par -> y >= _par -> z)
+                {
+                    _par -> y;
+                }
+                else
+                {
+                    _par -> z;
+                }
+            }
+        };
+        <- getProduct
+        {
+            (_par -> x) * (_par -> y) * (_par -> z);
+        };
+    ];
+
+a
+
+    <- TwoDeeVector
+    [
+        <- x;
+        <- y;
+        <- z;
+        
+        <- getSum
+        {
+            @_par;
+            
+            x + y + z;
+        };
+        <- getLargest
+        {
+            @_par;
+            
             if(x >= y)
             {
                 if(x >= z)
@@ -171,6 +218,6 @@ Here's an object. I'll explain it later.
         };
         <- getProduct
         {
-            (_par -> x) * (_par -> y) * (_par -> z);
-        }
+            x * y * z;
+        };
     ];
