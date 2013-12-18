@@ -1,5 +1,5 @@
 Yggdrasil
-=========
+===
 Dumb "tree-based" programming language
 
 Theory
@@ -30,6 +30,7 @@ There are some things that the "preprocessor" understands that will make your li
     -> foo $ val;
 
 If you do not do anything with foo, then the compiler assumes that you mean to get its value.  
+If you are pushing foo, then the compile assumes you mean the node itself.
 The preprocessor will also put -> before every node access. This is because you are getting the node from the *global tree* which is accessed by *grabbing* a value from nothing. (i.e., you try to get the value from the whitespace to the left of the arrow.)  
 However, for the sake of simplicity, I will be ommitting preprocessor goodies in the code below.
 
@@ -51,9 +52,26 @@ You can also make your own trees. Just push a new node onto another node!
     -> root -> bar $ val; // Returns 17.
     -> root -> qux $ val; // Returns 96.
 
+You can also do this:
+
+    // Make a new node.
+    <- root;
+    
+    // Construct
+    -> root
+    [
+        <- foo[34];
+        <- bar[17];
+        <- qux[96];
+    ];
+
 However, you cannot assign a *val* to *root* because it's "value" is its children.
 
     // This is no good.
     -> root[33];
 
 That will overwrite foo, bar, and qux. In addition, you will no longer be able to reference them or their values, so it'll cause memory leaks!
+
+To delete something, do this:
+
+    -> _trash <- foo;
