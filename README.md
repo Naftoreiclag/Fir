@@ -1,6 +1,6 @@
 Yggdrasil
 ===
-Dumb "tree-based" programming language
+Dumb "tree-based" programming language. Name subject to change.
 
 Theory
 ===
