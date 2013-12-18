@@ -130,7 +130,14 @@ A little ugly, remember what I said about the compiler's interpretations? You ca
         a + b;
     };
 
-Real neato.
+Real neato. To use it, just *puah* "a" and "b" nodes, then get the value of myFunction!
+
+    // Example function use:
+    myFunction <- a[5];
+    myFunction <- b[7];
+    
+    // This will return 12:
+    myFunction;
 
 Here's an object. I'll explain it later.
 
@@ -143,35 +150,6 @@ Here's an object. I'll explain it later.
         <- getSum
         {
             (_par -> x) + (_par -> y) + (_par -> z);
-        };
-        <- getLargest
-        {
-            if(_par -> x >= _par -> y)
-            {
-                if(_par -> x >= _par -> z)
-                {
-                    _par -> x;
-                }
-                else
-                {
-                    _par -> z;
-                }
-            }
-            else
-            {
-                if(_par -> y >= _par -> z)
-                {
-                    _par -> y;
-                }
-                else
-                {
-                    _par -> z;
-                }
-            }
-        };
-        <- getProduct
-        {
-            (_par -> x) * (_par -> y) * (_par -> z);
         };
     ];
 
@@ -188,36 +166,5 @@ a
             @_par;
             
             x + y + z;
-        };
-        <- getLargest
-        {
-            @_par;
-            
-            if(x >= y)
-            {
-                if(x >= z)
-                {
-                    x;
-                }
-                else
-                {
-                    z;
-                }
-            }
-            else
-            {
-                if(y >= z)
-                {
-                    y;
-                }
-                else
-                {
-                    z;
-                }
-            }
-        };
-        <- getProduct
-        {
-            x * y * z;
         };
     ];
