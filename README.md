@@ -125,12 +125,16 @@ To remove this ambiguousness, we need to use curly braces instead.
 A little uglu, remember what I said about the compiler's interpretations? You can shorten it to just be:
 
     // Delcare a new function.
-    <- myFunction;
-    
-    // Construct it to return a + b;
-    -> myFunction
+    <- myFunction
     {
         a + b;
     };
 
 Real neato.
+
+Here's an object. I'll explain it later.
+
+    <- myObject
+    {
+        
+    };
