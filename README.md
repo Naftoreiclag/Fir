@@ -110,6 +110,27 @@ Using the method explained eariler on initializing your own trees, you can also 
         (-> a $ val) + (-> b $ val);
     ];
 
-It's just like the tree made earlier, but it is constructed with a statement, rather than a node or a value. However, it is ambigious whether you want the static value of a + b, or if you want the statement to calculate a + b every time "myFunction $ val" is called.
+It's just like the tree made earlier, but it is constructed with a statement, rather than a node or a value. However, it is ambigious whether you want the static value of a + b, or if you want the statement to calculate a + b every time "myFunction $ val" is called.  
+To remove this ambiguousness, we need to use curly braces instead.
 
+    // Delcare a new function.
+    <- myFunction;
     
+    // Construct it to return a + b;
+    -> myFunction
+    {
+        (-> a $ val) + (-> b $ val);
+    };
+
+A little uglu, remember what I said about the compiler's interpretations? You can shorten it to just be:
+
+    // Delcare a new function.
+    <- myFunction;
+    
+    // Construct it to return a + b;
+    -> myFunction
+    {
+        a + b;
+    };
+
+Real neato.
