@@ -243,5 +243,18 @@ However, our object is pointless if we can't instiantate (make more of) it someh
     screen -> surfaceArea(); // 300
     carpet -> surfaceArea(); // 864
 
+Polymorphism (object inheritence)
+---
 
-    
+    // Let's make a new kind of rectangle. We'll make it a diamond. (paralellogram)
+    // Diamond shapes should have some special properties, like their acute angle.
+    <- diamond
+    [
+        // Import everything from rectangle.
+        @par -> rectangle;
+        
+        // But we'll also have "angle."
+        <- angle;
+    ]
+
+
