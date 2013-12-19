@@ -15,7 +15,7 @@ Variables are acessed by *grabbing* those nodes, and getting their stored values
 That will *push* a new node called *foo* onto the tree.
 
     // Get foo's value.
-    -> foo -> _val;
+    -> foo -> $val;
 
 That will *grab* the first node called *foo* and return its value.  
 But wait a minute! *foo* has no value, so it returns *nil*! We should do this first:
@@ -54,9 +54,9 @@ You can also do this:
 To access the nodes (and their values) in *root*, do this:
     
     // Access their values.
-    -> root -> foo -> _val; // Returns 34.
-    -> root -> bar -> _val; // Returns 17.
-    -> root -> qux -> _val; // Returns 96.
+    -> root -> foo -> $val; // Returns 34.
+    -> root -> bar -> $val; // Returns 17.
+    -> root -> qux -> $val; // Returns 96.
 
 However, you cannot assign a *val* to *root* because it's "value" is its children.
 
@@ -68,17 +68,17 @@ That will overwrite foo, bar, and qux. In addition, you will no longer be able t
 To delete something, do this:
 
     // Push foo into the _trash.
-    -> _trash <- foo;
+    -> $trash <- foo;
 
-First we *grab* _trash from the global tree, then *push* foo into it. That will immediately delete it and any value it has. You can't get it back out of the trash, though! That would be gross.
+First we *grab* $trash from the global tree, then *push* foo into it. That will immediately delete it and any value it has. You can't get it back out of the trash, though! That would be gross.
 
     // Eww! No way!
-    -> _trash -> foo -> _val;
+    -> $trash -> foo -> $val;
 
 There are also some shorthand ways of writing this code to make your life easier.
 
     // This is can be shortened...
-    -> foo -> _val;
+    -> foo -> $val;
     
     // ...into this!
     foo;
@@ -107,10 +107,10 @@ Using the method explained eariler on initializing your own trees, you can also 
     // Construct it to return a + b;
     -> myFunction
     [
-        (-> a -> _val) + (-> b -> _val);
+        (-> a -> $val) + (-> b -> $val);
     ];
 
-It's just like the tree made earlier, but it is constructed with a statement, rather than a node or a value. However, it is ambigious whether you want the static value of a + b, or if you want the statement to calculate a + b every time "myFunction -> _val" is called.  
+It's just like the tree made earlier, but it is constructed with a statement, rather than a node or a value.   However, it is ambigious whether you want the static value of a + b, or if you want the statement to calculate a + b every time "myFunction -> $val" is called.  
 To remove this ambiguousness, we need to use curly braces instead.
 
     // Delcare a new function.
@@ -119,7 +119,7 @@ To remove this ambiguousness, we need to use curly braces instead.
     // Construct it to return a + b;
     -> myFunction
     {
-        (-> a -> _val) + (-> b -> _val);
+        (-> a -> $val) + (-> b -> $val);
     };
 
 A little ugly, remember what I said about the compiler's interpretations? You can shorten it to just be:
@@ -130,7 +130,7 @@ A little ugly, remember what I said about the compiler's interpretations? You ca
         a + b;
     };
 
-Real neato. To use it, just *puah* "a" and "b" nodes, then get the value of myFunction!
+Real neato. To use it, just *push* "a" and "b" nodes, then get the value of myFunction!
 
     // Example function use:
     myFunction <- a[5];
@@ -149,7 +149,7 @@ Here's an object. I'll explain it later.
         
         <- getSum
         {
-            (_par -> x) + (_par -> y) + (_par -> z);
+            ($par -> x) + ($par -> y) + ($par -> z);
         };
     ];
 
@@ -163,7 +163,7 @@ a
         
         <- getSum
         {
-            @_par;
+            @ $par;
             
             x + y + z;
         };
