@@ -57,11 +57,11 @@ You can also do this:
 To access the nodes (and their values) in *root*, do this:
     
     // Access their values.
-    -> root -> foo -> $val; // Returns 34.
-    -> root -> bar -> $val; // Returns 17.
-    -> root -> qux -> $val; // Returns 96.
+    -> root -> foo$; // Returns 34.
+    -> root -> bar$; // Returns 17.
+    -> root -> qux$; // Returns 96.
 
-However, you cannot assign a *val* to *root* because it's "value" is its children.
+However, you cannot assign a *$* to *root* because it's "value" is its children.
 
     // This is no good.
     -> root[33];
@@ -74,12 +74,12 @@ Deletion / cleaning up
 To delete something, do this:
 
     // Push foo into the $trash.
-    -> $trash <- foo;
+    -> __trash <- foo;
 
 First we *grab* $trash from the global root, then *push* foo into it. That will immediately delete it and any value it has. You can't get it back out of the trash, though! That would be gross.
 
     // Eww! No way!
-    -> $trash -> foo -> $val;
+    -> __trash -> foo$;
 
 Additionally, all nodes have access to $trash. You don't need to get it from the global root.
 
@@ -89,13 +89,13 @@ Additionally, all nodes have access to $trash. You don't need to get it from the
 There are also some shorthand ways of writing this code to make your life easier.
 
     // This is can be shortened...
-    -> foo -> $val;
+    -> foo$;
     
     // ...into this!
     foo;
 
 Every formal declaration and access in this language either begins with with a left- or right- arrow. If you do not specify one, then the compiler assumes you mean a right-arrow. (->)  
-Additionally, if you *grab* a node, but do not *push* anything into it, then the compiler assumes you mean to get its value. (it will append "-> $val" to the end of the statement).
+Additionally, if you *grab* a node, but do not *push* anything into it, then the compiler assumes you mean to get its value. (it will append "$" to the end of the statement).
     
     // And this can be shortened...
     <- foo;
@@ -150,12 +150,12 @@ Using the method explained eariler on initializing your own trees, you can also 
     // Construct it to return a + b.
     -> myFunction
     [
-        (-> a -> $val) + (-> b -> $val);
+        (-> a$) + (-> b$);
     ];
     
     // Wait, are you sure?
 
-It's just like the tree made earlier, but it is constructed with a statement, rather than a node or a value.   However, it is ambigious whether you want the static value of a + b, or if you want the statement to calculate a + b every time "myFunction -> $val" is called.  
+It's just like the tree made earlier, but it is constructed with a statement, rather than a node or a value.   However, it is ambigious whether you want the static value of a + b, or if you want the statement to calculate a + b every time "myFunction$" is called.  
 To remove this ambiguousness, we need to use curly braces instead.
 
     // Delcare a new function.
@@ -168,7 +168,7 @@ To remove this ambiguousness, we need to use curly braces instead.
     // Construct it to return a + b;
     -> myFunction
     {
-        return (-> $par -> a -> $val) + (-> $par -> b -> $val);
+        return (-> __par -> a$) + (-> __par -> b$);
     };
 
 A little ugly, remember what I said about the compiler's interpretations? You can shorten it to just be:
@@ -176,7 +176,7 @@ A little ugly, remember what I said about the compiler's interpretations? You ca
     // Delcare a new function.
     <- myFunction
     {
-        within $par;
+        within __par;
         
         return a + b;
     };
@@ -205,7 +205,7 @@ What we did in the "functions" section is pretty much an object on its own, but 
         // The function:
         <- surfaceArea
         {
-            within $par;
+            within __par;
             
             return width * height;
         }
@@ -253,7 +253,7 @@ Polymorphism is way cool, bro! Let's make some diamonds! (Without needing to min
     <- diamond
     [
         // Import everything from rectangle.
-        $par -> rectangle;
+        __par -> rectangle;
         
         // But we'll also have "angle."
         <- angle;
