@@ -73,10 +73,10 @@ Deletion / cleaning up
 
 To delete something, do this:
 
-    // Push foo into the $trash.
+    // Push foo into the __trash.
     -> __trash <- foo;
 
-First we *grab* $trash from the global root, then *push* foo into it. That will immediately delete it and any value it has. You can't get it back out of the trash, though! That would be gross.
+First we *grab* __trash from the global root, then *push* foo into it. That will immediately delete it and any value it has. You can't get it back out of the trash, though! That would be gross.
 
     // Eww! No way!
     -> __trash -> foo$;
@@ -274,3 +274,33 @@ Let's make some instances of diamonds.
     kite -> angle[45];
 
 Neat-o.
+
+Error handling
+---
+
+Sometimes wacky things might happen when you are debugging your program, so you'll need to know what happens.  
+Whenever an error happens, an error report string is sent to the value of the node __error.
+
+Let's make a function that divides six by zero because ->YOLO.
+
+    // Let's make a cool function!
+    <- divideByZero
+    {
+        return 6 / 0;
+    }
+    
+    // Let's call it!
+    divideByZero;
+    
+    // Let's check for errors!
+    if(__error != nil)
+    {
+        print -> output <- __error$;
+    }
+    else
+    {
+        // Everything is okay!?
+    }
+
+
+
