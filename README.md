@@ -84,7 +84,7 @@ There are also some shorthand ways of writing this code to make your life easier
     foo;
 
 Every formal declaration and access in this language either begins with with a left- or right- arrow. If you do not specify one, then the compiler assumes you mean a right-arrow. (->)  
-Additionally, if you *grab* a node, but do not *push* anything into it, then the compiler assumes you mean to get its value. (it will append "-> _val" to the end of the statement).
+Additionally, if you *grab* a node, but do not *push* anything into it, then the compiler assumes you mean to get its value. (it will append "-> $val" to the end of the statement).
     
     // And this can be shortened...
     <- foo;
