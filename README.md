@@ -211,13 +211,37 @@ What we did in the "functions" section is pretty much an object on its own, but 
         }
     ]
 
-It's just like the sample adding function we made above. Except it's in a node.
+It's just like the sample adding function we made above. Except it's in a node. This how you can utilize it:
 
     // Set the rectangle's properties.
     rectangle -> width[10];
     rectangle -> height[8];
     
     // Get the surface area.
-    rectangle -> surfaceArea();
-    // returns 80.
+    rectangle -> surfaceArea(); // returns 80.
 
+However, our object is pointless if we can't instiantate (make more of) it somehow. We can clone them by declaring a new node with the object as its constructor.
+
+    // Let's make a new rectangle.
+    <- paper[rectangle];
+    <- screen[rectangle];
+    <- carpet[rectangle];
+    
+    // Set some cool values.
+    
+    paper -> width[8.5];
+    paper -> height[11];
+    
+    screen -> width[20];
+    screen -> height[15];
+    
+    carpet -> width[36];
+    carpet -> height[24];
+    
+    // Make some cool calculations
+    paper -> surfaceArea(); // 93.5
+    screen -> surfaceArea(); // 300
+    carpet -> surfaceArea(); // 864
+
+
+    
