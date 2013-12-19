@@ -246,15 +246,31 @@ However, our object is pointless if we can't instiantate (make more of) it someh
 Polymorphism (object inheritence)
 ---
 
+Polymorphism is way cool, bro! Let's make some diamonds! (Without needing to mine for them.)
+
     // Let's make a new kind of rectangle. We'll make it a diamond. (paralellogram)
     // Diamond shapes should have some special properties, like their acute angle.
     <- diamond
     [
         // Import everything from rectangle.
-        @par -> rectangle;
+        $par -> rectangle;
         
         // But we'll also have "angle."
         <- angle;
     ]
 
+Let's make some instances of diamonds.
 
+    // Like a diamond in the sky.
+    <- star[diamond];
+    <- kite[diamond];
+    
+    // Values:
+    star -> width[999999999];
+    star -> height[999999999];
+    star -> angle[89];
+    kite -> width[30];
+    kite -> height[30];
+    kite -> angle[45];
+
+Neat-o.
