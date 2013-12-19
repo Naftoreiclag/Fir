@@ -3,7 +3,7 @@ Yggdrasil
 Dumb "tree-based" programming language. Name subject to change.
 
 Theory
-===
+---
 Everything in this programming language operates on a giant node-tree.
 
 Variables are declared by *pushing* new nodes onto the tree.  
@@ -24,6 +24,9 @@ But wait a minute! *foo* has no value, so it returns *nil*! We should do this fi
     -> foo[12];
 
 That will set *foo*'s value to be 12.
+
+Making your own trees
+---
 
 You can also make your own trees. Just push a new node onto another node!
 
@@ -65,15 +68,23 @@ However, you cannot assign a *val* to *root* because it's "value" is its childre
 
 That will overwrite foo, bar, and qux. In addition, you will no longer be able to reference them or their values, so it'll cause memory leaks!
 
+Deletion / cleaning up
+---
+
 To delete something, do this:
 
-    // Push foo into the _trash.
+    // Push foo into the $trash.
     -> $trash <- foo;
 
-First we *grab* $trash from the global tree, then *push* foo into it. That will immediately delete it and any value it has. You can't get it back out of the trash, though! That would be gross.
+First we *grab* $trash from the global root, then *push* foo into it. That will immediately delete it and any value it has. You can't get it back out of the trash, though! That would be gross.
 
     // Eww! No way!
     -> $trash -> foo -> $val;
+
+Additionally, all nodes have access to $trash. You don't need to get it from the global root.
+
+"Preprocessor" goodies
+---
 
 There are also some shorthand ways of writing this code to make your life easier.
 
@@ -100,6 +111,7 @@ Additionally, if you *grab* a node, but do not *push* anything into it, then the
 Pretty simple; you can combine the declaration and construction statements together into one line.
 
 One more trick: You can also say "within" in a way similar to C++'s "using namespace foo".
+It tells the compiler to append whatever directory before every node access. (instead of just plain ->.)
 
     // Make some kinda root.
     <- root.
@@ -123,6 +135,12 @@ One more trick: You can also say "within" in a way similar to C++'s "using names
     a;
     b;
     c;
+    
+    // To get out of within, just use this:
+    within;
+
+Functions
+---
 
 Using the method explained eariler on initializing your own trees, you can also make trees that act as functions.
 
@@ -143,6 +161,10 @@ To remove this ambiguousness, we need to use curly braces instead.
     // Delcare a new function.
     <- myFunction;
     
+    // Declare some variables that it will be handling
+    <- a;
+    <- b;
+    
     // Construct it to return a + b;
     -> myFunction
     {
@@ -162,24 +184,40 @@ A little ugly, remember what I said about the compiler's interpretations? You ca
 Real neato. To use it, just *push* "a" and "b" nodes, then get the value of myFunction!
 
     // Example function use:
-    <- a[5];
-    <- b[7];
+    a[5];
+    b[7];
     
     // This will return 12:
     myFunction;
 
-Here's an object. I'll explain it later.
+Objects
+---
 
-    <- TwoDeeVector
+What we did in the "functions" section is pretty much an object on its own, but stored in the global root. All we need to do is move everything to be within an object node.
+
+    // Declare and construct a new object.
+    <- rectangle
     [
-        <- x;
-        <- y;
-        <- z;
+        // Make some vars.
+        <- width;
+        <- height;
         
-        <- getSum
+        // The function:
+        <- surfaceArea
         {
             within $par;
             
-            return x + y + z;
-        };
-    ];
+            return width * height;
+        }
+    ]
+
+It's just like the sample adding function we made above. Except it's in a node.
+
+    // Set the rectangle's properties.
+    rectangle -> width[10];
+    rectangle -> height[8];
+    
+    // Get the surface area.
+    rectangle -> surfaceArea();
+    // returns 80.
+
