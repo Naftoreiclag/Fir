@@ -99,7 +99,7 @@ Additionally, if you *grab* a node, but do not *push* anything into it, then the
 
 Pretty simple; you can combine the declaration and construction statements together into one line.
 
-One more trick: You can also use one of those thingies (@) in a way similar to C++'s "using namespace foo".
+One more trick: You can also say "within" in a way similar to C++'s "using namespace foo".
 
     // Make some kinda root.
     <- root.
@@ -116,8 +116,8 @@ One more trick: You can also use one of those thingies (@) in a way similar to C
     root -> foo -> b;
     root -> foo -> c;
     
-    // But you can shorten it using @.
-    @ root -> foo;
+    // But you can shorten it using "within."
+    within root -> foo;
     
     // Then do this instead:
     a;
@@ -146,7 +146,7 @@ To remove this ambiguousness, we need to use curly braces instead.
     // Construct it to return a + b;
     -> myFunction
     {
-        return (-> a -> $val) + (-> b -> $val);
+        return (-> $par -> a -> $val) + (-> $par -> b -> $val);
     };
 
 A little ugly, remember what I said about the compiler's interpretations? You can shorten it to just be:
@@ -154,14 +154,16 @@ A little ugly, remember what I said about the compiler's interpretations? You ca
     // Delcare a new function.
     <- myFunction
     {
+        within $par;
+        
         return a + b;
     };
 
 Real neato. To use it, just *push* "a" and "b" nodes, then get the value of myFunction!
 
     // Example function use:
-    myFunction <- a[5];
-    myFunction <- b[7];
+    <- a[5];
+    <- b[7];
     
     // This will return 12:
     myFunction;
@@ -176,21 +178,7 @@ Here's an object. I'll explain it later.
         
         <- getSum
         {
-            return ($par -> x) + ($par -> y) + ($par -> z);
-        };
-    ];
-
-a
-
-    <- TwoDeeVector
-    [
-        <- x;
-        <- y;
-        <- z;
-        
-        <- getSum
-        {
-            @ $par;
+            within $par;
             
             return x + y + z;
         };
