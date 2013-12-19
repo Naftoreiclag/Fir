@@ -99,6 +99,31 @@ Additionally, if you *grab* a node, but do not *push* anything into it, then the
 
 Pretty simple; you can combine the declaration and construction statements together into one line.
 
+One more trick: You can also use one of those thingies (@) in a way similar to C++'s "using namespace foo".
+
+    // Make some kinda root.
+    <- root.
+
+    // Push a new table.
+    -> root <- foo[
+        <- a[1];
+        <- b[2];
+        <- c[3];
+    ]
+    
+    // Normally, you would have to say:
+    root -> foo -> a;
+    root -> foo -> b;
+    root -> foo -> c;
+    
+    // But you can shorten it using @.
+    @ root -> foo;
+    
+    // Then do this instead:
+    a;
+    b;
+    c;
+
 Using the method explained eariler on initializing your own trees, you can also make trees that act as functions.
 
     // Delcare a new function.
@@ -121,7 +146,7 @@ To remove this ambiguousness, we need to use curly braces instead.
     // Construct it to return a + b;
     -> myFunction
     {
-        (-> a -> $val) + (-> b -> $val);
+        return (-> a -> $val) + (-> b -> $val);
     };
 
 A little ugly, remember what I said about the compiler's interpretations? You can shorten it to just be:
@@ -129,7 +154,7 @@ A little ugly, remember what I said about the compiler's interpretations? You ca
     // Delcare a new function.
     <- myFunction
     {
-        a + b;
+        return a + b;
     };
 
 Real neato. To use it, just *push* "a" and "b" nodes, then get the value of myFunction!
@@ -151,7 +176,7 @@ Here's an object. I'll explain it later.
         
         <- getSum
         {
-            ($par -> x) + ($par -> y) + ($par -> z);
+            return ($par -> x) + ($par -> y) + ($par -> z);
         };
     ];
 
@@ -167,6 +192,6 @@ a
         {
             @ $par;
             
-            x + y + z;
+            return x + y + z;
         };
     ];
