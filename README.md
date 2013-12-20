@@ -1,6 +1,7 @@
 [![alt tag](http://naftoreiclag.github.io/oak_vector.svg "Oak")](https://github.com/Naftoreiclag/Oak)
 ===
-Dumb "tree-based" programming language. Name subject to change.
+Licenced under the [MIT License (MIT)](http://opensource.org/licenses/mit-license.html).  
+*Some kinda "tree-based" programming language.*
 
 Theory
 ---
