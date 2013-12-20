@@ -1,0 +1,2 @@
+-> print -> message["Hello World!"];
+print;
